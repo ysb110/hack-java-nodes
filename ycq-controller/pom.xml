@@ -20,19 +20,17 @@
 	</properties>
 
 	<dependencies>
-		<!-- ycq-common-service-facade -->
+		<dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.20</version>
+        </dependency>
 		<dependency>
 			<groupId>com.ycq</groupId>
 			<artifactId>ycq-common-service-facade</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.16.20</version>
-        </dependency>
-    </dependencies>
+	</dependencies>
 
 	<build>
 		<plugins>
