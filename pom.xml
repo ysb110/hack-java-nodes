@@ -60,13 +60,6 @@
             <version>1.0.0</version>
         </dependency>
 
-        <!-- ycq-common-service-facade -->
-        <dependency>
-            <groupId>com.ycq</groupId>
-            <artifactId>ycq-common-service-facade</artifactId>
-            <version>0.0.1</version>
-        </dependency>
-
         <!-- AOP -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

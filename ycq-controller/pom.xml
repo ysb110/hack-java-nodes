@@ -20,7 +20,12 @@
 	</properties>
 
 	<dependencies>
-
+		<!-- ycq-common-service-facade -->
+		<dependency>
+			<groupId>com.ycq</groupId>
+			<artifactId>ycq-common-service-facade</artifactId>
+			<version>0.0.1</version>
+		</dependency>
         <dependency>
             <groupId>com.ycq</groupId>
             <artifactId>ycq-common-service-facade</artifactId>
