@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.9.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.ycq</groupId>
+	<artifactId>ycq</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>ycq</name>
+	<description>Demo project for Spring Boot</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	<modules>
+		<module>ycq-analysis</module>
+		<module>ycq-common-service-facade</module>
+        <module>ycq-controller</module>
+        <module>ycq-order</module>
+        <module>ycq-product</module>
+        <module>ycq-redis</module>
+        <module>ycq-user</module>
+	</modules>
+    <dependencies>
+        <!-- Spring Boot Dubbo 依赖 -->
+        <dependency>
+            <groupId>io.dubbo.springboot</groupId>
+            <artifactId>spring-boot-starter-dubbo</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- Spring MVC -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!-- Spring Boot Test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.2</version>
+        </dependency>
+        <!-- Dubbo -->
+        <dependency>
+            <groupId>io.dubbo.springboot</groupId>
+            <artifactId>spring-boot-starter-dubbo</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <!-- ycq-common-service-facade -->
+        <dependency>
+            <groupId>com.ycq</groupId>
+            <artifactId>ycq-common-service-facade</artifactId>
+            <version>0.0.1</version>
+        </dependency>
+
+        <!-- AOP -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
+        <!-- guava -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>23.3-jre</version>
+        </dependency>
+    </dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+    <plugin>
+        <groupId>org.codehaus.cargo</groupId>
+        <artifactId>cargo-maven2-plugin</artifactId>
+        <version>1.6.5</version>
+        <configuration>
+            <container>
+                <!-- 指明使用的tomcat服务器版本 -->
+                <containerId>tomcat8x</containerId>
+                <type>remote</type>
+            </container>
+            <configuration>
+                <type>runtime</type>
+                <cargo.remote.username>Tomcat的用户名</cargo.remote.username>
+                <cargo.remote.password>Tomcat的密码</cargo.remote.password>
+            </configuration>
+        </configuration>
+        <executions>
+            <execution>
+                <phase>deploy</phase>
+                <goals>
+                    <goal>redeploy</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+</project>
