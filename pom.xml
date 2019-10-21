@@ -28,13 +28,6 @@
         <module>ycq-user</module>
 	</modules>
     <dependencies>
-        <!-- Spring Boot Dubbo 依赖 -->
-        <dependency>
-            <groupId>io.dubbo.springboot</groupId>
-            <artifactId>spring-boot-starter-dubbo</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
         <!-- Spring MVC -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -77,39 +70,4 @@
             <version>23.3-jre</version>
         </dependency>
     </dependencies>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-            <plugin>
-                <groupId>org.codehaus.cargo</groupId>
-                <artifactId>cargo-maven2-plugin</artifactId>
-                <version>1.6.5</version>
-                <configuration>
-                    <container>
-                        <!-- 指明使用的tomcat服务器版本 -->
-                        <containerId>tomcat8x</containerId>
-                        <type>remote</type>
-                    </container>
-                    <configuration>
-                        <type>runtime</type>
-                        <cargo.remote.username>admin</cargo.remote.username>
-                        <cargo.remote.password>jishimen2019</cargo.remote.password>
-                    </configuration>
-                </configuration>
-                <executions>
-                    <execution>
-                        <phase>deploy</phase>
-                        <goals>
-                            <goal>redeploy</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-		</plugins>
-	</build>
-
 </project>
