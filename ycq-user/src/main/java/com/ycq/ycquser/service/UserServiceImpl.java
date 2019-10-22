@@ -9,6 +9,6 @@ import com.ycq.ycqcommonservicefacade.vo.UserEntity;
 public class UserServiceImpl implements UserService {
     @Override
     public UserEntity login(LoginReq loginReq) {
-        return new UserEntity("ycq22new","pwd",28);
+        return new UserEntity("ycq22new2","pwd",28);
     }
 }
