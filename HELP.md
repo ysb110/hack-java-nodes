@@ -91,14 +91,64 @@ while(!_stop) {
 
 ```
 ### NioEventLoopGroup
+
+NioEventLoopGroup
+* 默认线程个数cpu*2或者可以初始化时候指定
+* 使用默认的selector
+* 线程工厂类io.netty.util.concurrent.DefaultThreadFactory
+> 工厂方法对newThread方法传参runable使用包装器模式,包装类为FastThreadLocalThread，每个run方法均在结束后调用 FastThreadLocal.removeAll();
+> FastThreadLocalThread继承Thread，加入了成员变量InternalThreadLocalMap
+
+FastThreadLocal.removeAll
+> InternalThreadLocalMap.getIfSet
+* 获取当前线程
+* 如果是FastThreadLocalThread，则获取threadLocalMap
+* 否则从某个类(UnpaddedInternalThreadLocalMap类)的静态成员变量ThreadLocal<InternalThreadLocalMap>获取InternalThreadLocalMap
+
+
 ![NioEventLoopGroup](./images/nioeventloopgroup.png)
 
 ### NioEventLoop
 ![NioEventLoop](./images/NioEventLoop.png)
 
+![bootstrapuml](images/bootstrapuml.png)
 
-> linkedblockingdeque应用场景?
-> Jedis工具类代码
+AbstractBootstrap.java  
+initAndRegister方法  
+首先实例化chanel,类型这里是基于http协议的nio类型的chanel,  
+NioServerSocketChannel类加载时指定默认的selector(WindowsSelectorImpl),  
+SelectorProvider.provider().openSelector();
+
+无参构造函数新建一个socket,  
+newSocket
+* 里面新建了个管道new DefaultChannelPipeline(this)
+* 设置为非阻塞 ch.configureBlocking(false);
+* unsafe=new NioMessageUnsafe();
+
+![NioMessageUnsafeuml](ChanelSelectoruml/NioMessageUnsafeuml.png)
+![image](ChanelSelectoruml/image.png)
+![WindowSelectorImpluml](images/WindowSelectorImpluml.png)
+
+doBind绑定IP地址，首先初始化和注册，初始化包含chanel设置options,attrs
+```java
+// This method is invoked before channelRegistered() is triggered.  Give user handlers a chance to set up
+        // the pipeline in its channelRegistered() implementation.
+        channel.eventLoop().execute(new OneTimeTask() {
+            @Override
+            public void run() {
+                if (regFuture.isSuccess()) {
+                    channel.bind(localAddress, promise).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+                } else {
+                    promise.setFailure(regFuture.cause());
+                }
+            }
+        });
+```
+![NioServerSocketChannel.png](images/NioServerSocketChannel.png)
+
+
+> linkedblockingdeque应用场景?  
+> Jedis工具类代码  
 > options LinkedHashMap多线程使用synchronized同步
 
 ### ByteBuf
