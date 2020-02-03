@@ -152,7 +152,7 @@ doBind绑定IP地址，首先初始化和注册，初始化包含chanel设置opt
 > options LinkedHashMap多线程使用synchronized同步
 
 ### ByteBuf
-readIndex1  
+readIndex12  
 writeIndex  
 markedReadIndex  
 markedWriteIndex 
