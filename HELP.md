@@ -1,19 +1,35 @@
 ### facetoface源码解析
 auth服务：负责登录认证  
 #### 解析配置。common-cli-1.3.1.jar
+引入Maven配置
+```xml
+<dependency>
+            <groupId>commons-cli</groupId>
+            <artifactId>commons-cli</artifactId>
+            <version>1.4</version>
+        </dependency>
+```
 ```java
-static void parseArgs(String[] args) throws ParseException {
-        CommandLineParser parser = new BasicParser();
-        Options options = new Options();
-        options.addOption("h", "help", false, "Print this usage information");
-        options.addOption("c", "cfg", true, "config Absolute Path");
-        options.addOption("l", "log", true, "log configuration");
-
-        // Parse the program arguments
-        CommandLine commandLine = parser.parse(options, args);
+public static void main(String[] args) {
+        String[] args1 = {"-h","--help","-c","wa ca nie"};
+        validateParams(args1);
 }
 
-#### 启动Worker处理消息IMHandler队列
+private static void validateParams(String[] args) {
+    CommandLineParser parser = new DefaultParser();
+    Options options = new Options();
+    options.addOption("h","help" ,false,"help info");
+    options.addOption("c", true, "configuration");
+
+    try {
+        CommandLine commandLine = parser.parse(options, args);
+        if (commandLine.hasOption("help")) {
+            System.out.println(commandLine.getOptionValue("c"));
+            System.exit(0);
+        }
+    } catch (ParseException e) {
+        e.printStackTrace();
+    }
 ```
 获取auth认证服务器Worker线程启动个数，workNum
 ```java
