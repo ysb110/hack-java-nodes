@@ -1,4 +1,15 @@
-Java代码如何以字符串的形式在后台动态执行
+Java代码如何以字符串的形式在后台动态执行  
+现在有一个需求。用户输入自己的代码,加入自己引用的依赖。就可以动态的执行,将结果返回。这样的例子网站上也有，比如https://c.runoob.com/compile/10在线编译工具。我们这里是一个升级版，可以引入自定义的maven依赖。
+
+我们的场景是对于动态执行的Java代码。我们有个根目录。在根目录下指定一个pom.xml文件。当得到用户输入的依赖字符串之后，我们新建一个pom.xml替换之前的pom.xml。对他们的内容和路径拼接的字符串哈希运算。得到一个数值。
+```java
+public static String md5(String content) throws NoSuchAlgorithmException{
+    MessageDigest md5 = MessageDigest.getInstance("MD5");
+    md5.update(content.getBytes());
+    BigInteger bi = new BigInteger(1, md5.digest());
+    return bi.toString(16);
+}
+```
 首先，检测pom.xml是否有变动？使用哈希什对文件内容字符串进行hash,
 得到的结果与之前进行比对。如果不一致则发生了变更。变更后，首先要进行clean操作。
 操作分为三步。  
