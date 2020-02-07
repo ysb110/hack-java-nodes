@@ -13,16 +13,16 @@ public static String md5(String content) throws NoSuchAlgorithmException{
 首先，检测pom.xml是否有变动？使用哈希什对文件内容字符串进行hash,
 得到的结果与之前进行比对。如果不一致则发生了变更。变更后，首先要进行clean操作。
 操作分为三步。  
-第一步：将当前限定上下文切换到POM文件目录下。
+>第一步：将当前限定上下文切换到POM文件目录下。
 ```java
 ProcessBuilder pb = new ProcessBuilder(args);
 pb.directory(new File(JAR_PATH));
 pb.redirectErrorStream(true);
 ```
-第二步：将对应pom中的依赖项拷贝过来  
+>第二步：将对应pom中的依赖项拷贝过来  
 `cmd /c D:\ycq_java\apache-maven-3.6.3\bin\mvn clean`
   
-第三步：将pom.xml中的依赖jar包拷贝到当前目录下的：target/dependency目录下  
+>第三步：将pom.xml中的依赖jar包拷贝到当前目录下的：target/dependency目录下  
 `cmd /c D:\ycq_java\apache-maven-3.6.3\bin\mvn -f pom.xml dependency:copy-dependencies`
 
 获取所有的jar包，所有jar包的路径作为参数，新建一个class loader，Parent是当前线程的类加载器。
@@ -45,10 +45,10 @@ public static List<File> findJars() throws IOException {
     return findAllJar;
 }
 ```
-实例化一个class loader。  
+####实例化一个class loader。  
 `URLClassLoader classLoader = new URLClassLoader(urls, Thread.currentThread().getContextClassLoader());`  
 当前初始化工作已经完成。  
-接下来我们举个例子  
+####接下来我们举个例子  
 用户输入一个Java代码,并传入所依赖的Maven。  
 首先maven被写入到新的pom.xml文件中,先clean、引入依赖项,然后重新设置这个上下文的class loader。  
 初始化完成后，首先会执行如下代码。
@@ -177,4 +177,6 @@ public void run() {
 }
 ```
 
-  
+### 参考  
+* [Java深度历险Java 字节代码的操纵](https://www.infoq.cn/article/cf-java-byte-code/)  
+* [上述均是对该github项目代码的解读](https://github.com/kongshanxuelin/sumscope_nb_it/blob/master/com.sumslack.compile.dyna/)
