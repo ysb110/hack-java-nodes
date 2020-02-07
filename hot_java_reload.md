@@ -45,10 +45,10 @@ public static List<File> findJars() throws IOException {
     return findAllJar;
 }
 ```
-####实例化一个class loader。  
+#### 实例化一个class loader。  
 `URLClassLoader classLoader = new URLClassLoader(urls, Thread.currentThread().getContextClassLoader());`  
 当前初始化工作已经完成。  
-####接下来我们举个例子  
+#### 接下来我们举个例子  
 用户输入一个Java代码,并传入所依赖的Maven。  
 首先maven被写入到新的pom.xml文件中,先clean、引入依赖项,然后重新设置这个上下文的class loader。  
 初始化完成后，首先会执行如下代码。
